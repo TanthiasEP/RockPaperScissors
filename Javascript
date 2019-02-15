@@ -1,0 +1,118 @@
+/*Rock paper scissors game.*/
+
+//First we'll set up a function to get our user's input. The actual choice will be made on line 107, so we can skip down and change it there to test all options.
+const getUserChoice = userInput =>{
+
+	//Since our user can type in choices with a variety of capitalization, let's make it all lower case.
+	userInput = userInput.toLowerCase();
+  
+  //Let's ensure that our user put in a valid choice of rock, paper, scissors, or the special bomb. If so, we return the input.
+  if(userInput === "rock" || userInput === "paper" || userInput === "scissors" || userInput === "bomb")
+  {
+  	  return userInput;
+  }
+  
+  //If not valid, we ask the user to make a valid choice.
+  else
+  {
+      console.log("Please input a valid option.")
+  }
+};
+
+//Our computer also needs to make a decision. 
+function getComputerChoice()
+{
+  //We'll get a random number from 3 choices.
+  const randomNumber = Math.floor(Math.random() * 3);
+  
+  //The number we receive will determine the option our computer has chosen. 0 = rock, 1 = paper, and 2 = scissors.
+  switch (randomNumber)
+    {
+      case 0:
+        return "rock";
+        break;
+      case 1:
+        return "paper";
+        break;
+      case 2:
+        return "scissors";
+        break;
+    }
+};
+
+//After both our user and copmuter have made their choices, we need to determine which is the winner.
+function determineWinner(userChoice, computerChoice)
+{
+  //If our user and computer have made the same choice, the game is a tie.
+  if(userChoice === computerChoice)
+    {
+      return "The game is a tie, please try again.";
+    }
+   
+  //When our user selects "Rock", we run this set.
+  if(userChoice == "rock")
+    {
+      //If our computer chose paper, our user has lost.
+      if(computerChoice == "paper")
+        {
+          return "You have lost, please try again.";
+        }
+      //Otherwise our user has won.
+      else
+        {
+          return "You have defeated the computer, congratulations!";
+        }
+    }
+  
+  //Do the same for "Paper" and "Scissors", printing the appropriate response based on our computer's choice.
+  if(userChoice == "paper")
+    {
+      //If our computer chose paper, our user has lost.
+      if(computerChoice == "scissors")
+        {
+          return "You have lost, please try again.";
+        }
+      //Otherwise our user has won.
+      else
+        {
+          return "You have defeated the computer, congratulations!";
+        }
+    }
+  
+  if(userChoice == "scissors")
+    {
+      //If our computer chose paper, our user has lost.
+      if(computerChoice == "rock")
+        {
+          return "You have lost, please try again.";
+        }
+      //Otherwise our user has won.
+      else
+        {
+          return "You have defeated the computer, congratulations!";
+        }
+    }
+  
+  //As a special trick, if our user throws a bomb, we destroy the computer.
+  if(userChoice == "bomb")
+    {
+      return "The computer was destroyed in the resulting explosion. As such, you are victorious.";
+    }
+}
+
+//Now we create our playGame function, pitting our player against our computer.
+function playGame()
+{
+  //We'll set up a variable claiming our user chose rock. Can be changed to anything else.
+  const userChoice = getUserChoice("bomb");
+  
+  //Now set a variable to hold our computer's choice.
+  const computerChoice = getComputerChoice();
+  
+  //Let's print out each choice to the console.
+  console.log("You decided to throw: " + userChoice);
+  console.log("The computer decided to throw: " + computerChoice);
+  console.log(determineWinner(userChoice, computerChoice));
+}
+
+playGame();
